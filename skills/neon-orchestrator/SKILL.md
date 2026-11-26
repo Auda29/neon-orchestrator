@@ -20,7 +20,9 @@ Assign clear roles across models and let each model do what it does best.
 | **Implementer** | `gpt-6.2-sol` (`codex`) | **`xhigh`** (`high` only for small/routine tasks) | Implements scoped changes, updates/adds tests, runs verification, applies agreed review fixes. |
 | **Independent Reviewer** | `gpt-6.2-astra` (`codex`) | **`high`** | **Read-only** review of actual diffs and surrounding code; returns concrete findings and verdict. Never edits files. |
 
-Honor explicit user overrides for models or reasoning effort. If `gpt-6.2-sol` or `gpt-6.2-astra` is unavailable, stop and tell the user — never silently substitute another model.
+Honor explicit user overrides for models or reasoning effort. If `gpt-6.2-sol` or `gpt-6.2-astra` is unavailable, stop and tell the user — never silently substitute another model, except for the refusal fallback below.
+
+**Refusal fallback**: If `gpt-6.2-sol` or `gpt-6.2-astra` refuses a delegated instruction due to copyright or internal policy rules, retry **only that step** with its predecessor at the same reasoning effort (`gpt-6.2-sol` → `gpt-6.1-sol`, `gpt-6.2-astra` → `gpt-6-astra`). Once that step completes, immediately switch back to `gpt-6.2-sol` / `gpt-6.2-astra` for all subsequent steps. If the predecessor also refuses or is unavailable, stop and escalate to the user.
 
 ## Core Principles
 

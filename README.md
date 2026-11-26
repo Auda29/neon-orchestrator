@@ -12,6 +12,8 @@ A lean, cross-harness Agent Skill for **Antigravity**, **Claude Code**, **Codex*
 | **Implementer** | `gpt-6.2-sol` (`codex`) | **`xhigh`** (`high` only for small tasks) | Implementation, tests, verification, agreed review fixes |
 | **Independent Reviewer** | `gpt-6.2-astra` (`codex`) | **`high`** | Fresh, read-only review per round |
 
+*Refusal fallback: if a `6.2` worker refuses a delegated instruction due to copyright or internal policy rules, retry only that step with its predecessor (`gpt-6.1-sol` / `gpt-6-astra`) and then switch back to `6.2` for subsequent steps.*
+
 ```mermaid
 flowchart LR
     U[User] --> N["Coordinator & Co-Reviewer<br/>(Gemini 4 Neon · high)"]
