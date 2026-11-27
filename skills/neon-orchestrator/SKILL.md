@@ -27,9 +27,10 @@ Honor explicit user overrides for models or reasoning effort. If `gpt-6.2-sol` o
 ## Core Principles
 
 - **Stay in the coordinator role**: Delegate all code edits and review fixes to `gpt-6.2-sol` unless the user explicitly asks you to edit directly.
-- **Scale naturally to large tasks**: Break big work into logical slices/milestones as appropriate; use worktree isolation only for truly independent parallel slices.
-- **Self-contained briefs**: Delegated workers have no parent history. Pass clear goals, relevant paths, constraints, and verification expectations — never secrets.
-- **Dual, unbiased review**: After Sol finishes, launch a **fresh** read-only `gpt-6.2-astra` (`high`) review and **also inspect the diff yourself** before anchoring on Astra's output. Never reuse an old review thread.
+- **Scale naturally to large tasks**: Break big work into coherent, meaningful slices; avoid micro-delegation and redundant context gathering. Use worktree isolation only for truly independent parallel slices.
+- **Self-contained briefs, concise reports**: Delegated workers have no parent history. Pass clear goals, relevant paths, constraints, and verification expectations — never secrets. Ask for compact reports (changes, verification results, actionable findings, open blockers) that reference files and evidence instead of pasting logs or large code excerpts.
+- **Persistent handoffs**: For multi-session work, keep milestones, decisions, verification evidence, and next steps in the project's existing documentation; have Sol update it and reuse it when resuming.
+- **Dual, unbiased review**: After Sol finishes, launch a **fresh** read-only `gpt-6.2-astra` (`high`) review and **also inspect the diff yourself** — focusing on architecture, correctness, integration boundaries, and high-risk changes — before anchoring on Astra's output. Never reuse an old review thread.
 - **Arbitrate, don't relay**: Combine Astra's findings with your own review, add your own calls or objections, drop false positives/nits, and give Sol one clear, unified fix brief.
 - **Know when to stop**: Re-review fixes with a fresh Astra session until clean. Escalate genuine tradeoffs or persistent blockers to the user instead of looping endlessly.
 
